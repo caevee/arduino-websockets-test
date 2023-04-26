@@ -18,8 +18,6 @@ io.on('connection', (socket) => {
   }, 1000);
   */
 
-  socket.emit("data", "test");
-
   socket.on("message", (data) => {
     console.log("message received");
     io.emit("message", data);
