@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Visualization</title>
+  <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+</head>
+<body>
+  <button id="click1">send 1</button>
+  <button id="click2">send 2</button>
+  <canvas id="canvas" width="500" height="500"></canvas>
+  <script>
+    const socket = io('http://162.55.181.50:3000');
+
+    const button1 = document.getElementById("click1");
+    button1.addEventListener("click", function(e) {
+      e.preventDefault();
+      socket.emit("message", "data 1");
+    });
+    const button2 = document.getElementById("click2");
+    button2.addEventListener("click", function(e) {
+      e.preventDefault();
+      socket.emit("message", "data 2");
+    });
+
+    socket.on("message", (message) => {
+      console.log(message);
+    })
+
+  </script>
+</body>
+</html>
