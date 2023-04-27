@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>WebSocket Visualization</title>
   <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
 </head>
+
 <body>
   <button id="click1">send 1</button>
   <button id="click2">send 2</button>
   <canvas id="canvas" width="500" height="500"></canvas>
+  <form id="form" action="">
+    <input type="text" name="data" id="input">
+    <button>Send</button>
+  </form>
   <script>
     const socket = io('http://162.55.181.50:3000');
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
 
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit("message", input.value);
+        input.value = '';
+      }
+    });
     const button1 = document.getElementById("click1");
-    button1.addEventListener("click", function(e) {
+    button1.addEventListener("click", function (e) {
       e.preventDefault();
       socket.emit("message", "data 1");
     });
     const button2 = document.getElementById("click2");
-    button2.addEventListener("click", function(e) {
+    button2.addEventListener("click", function (e) {
       e.preventDefault();
       socket.emit("message", "data 2");
     });
@@ -28,4 +43,5 @@
 
   </script>
 </body>
+
 </html>
